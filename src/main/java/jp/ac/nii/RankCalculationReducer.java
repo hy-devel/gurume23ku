@@ -44,7 +44,7 @@ public class RankCalculationReducer extends
 		String outStr = keyIn.toString();
 		int rank = 0;
 		for (Entry<String, Integer> entry : entries) {
-			outStr += "," + entry.getKey();
+			outStr += "," + entry.getKey() + "," + entry.getValue();
 			rank++;
 			// 上位3件でbreak
 			if (rank >= FilePathConstants.RANKING) {
