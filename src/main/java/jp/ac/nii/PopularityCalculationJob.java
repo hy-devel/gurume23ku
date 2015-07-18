@@ -17,7 +17,15 @@ import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
  */
 public class PopularityCalculationJob extends Job {
 
-	public PopularityCalculationJob(String fileDir) throws IOException {
+	// HDFS上の入力ファイル「エリア-カテゴリー」
+	private static final Path inputFile = new Path(FilePathConstants.FILE_BASE
+			+ "/" + FilePathConstants.AREA_CATEGORY_FILE_NAME);
+
+	// HDFS上に出力されるファイル「エリア人気カテゴリー」
+	private static final Path outputFile = new Path(FilePathConstants.FILE_BASE
+			+ "/" + FilePathConstants.AREA_POPULARITY_FILE_NAME);
+
+	public PopularityCalculationJob() throws IOException {
 		this.setJobName("PopularityCalculationJob");
 		this.setJarByClass(PopularityCalculationJob.class);
 
@@ -36,8 +44,6 @@ public class PopularityCalculationJob extends Job {
 		this.setOutputFormatClass(TextOutputFormat.class);
 
 		// HDFS上の入力ファイルと出力ファイルのパスを設定するコードを記載してください
-		Path inputFile = new Path(fileDir + "/" + FilePathConstants.AREA_CATEGORY_FILE_NAME);
-		Path outputFile = new Path(fileDir + "/" + FilePathConstants.AREA_POPULARITY_FILE_NAME);
 		FileInputFormat.addInputPath(this, inputFile);
 		FileOutputFormat.setOutputPath(this, outputFile);
 

@@ -3,6 +3,7 @@ package jp.ac.nii;
 import java.io.IOException;
 
 import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.NullWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
@@ -16,7 +17,15 @@ import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
  */
 public class RankCalculationJob extends Job {
 
-	public RankCalculationJob(String fileDir) throws IOException {
+	// HDFS上の入力ファイル「エリア別業種出現数」
+	private static final Path inputFile = new Path(FilePathConstants.FILE_BASE
+			+ "/" + FilePathConstants.AREA_POPULARITY_FILE_NAME);
+
+	// HDFS上に出力されるファイル「エリア業種ランキング」
+	private static final Path outputFile = new Path(FilePathConstants.FILE_BASE
+			+ "/" + FilePathConstants.AREA_RANKING_FILE_NAME);
+
+	public RankCalculationJob() throws IOException {
 		this.setJobName("RankCalculationJob");
 		this.setJarByClass(RankCalculationJob.class);
 
@@ -35,8 +44,6 @@ public class RankCalculationJob extends Job {
 		this.setOutputFormatClass(TextOutputFormat.class);
 
 		// HDFS上の入力ファイルと出力ファイルのパスを設定するコードを記載してください
-		Path inputFile = new Path(fileDir + "/" + FilePathConstants.AREA_POPULARITY_FILE_NAME);
-		Path outputFile = new Path(fileDir + "/" + FilePathConstants.AREA_RANKING_FILE_NAME);
 		FileInputFormat.addInputPath(this, inputFile);
 		FileOutputFormat.setOutputPath(this, outputFile);
 
