@@ -10,7 +10,7 @@ import org.apache.hadoop.util.ToolRunner;
 /**
  * 実行ジョブ制御クラス
  * 実行時の引数に応じて、実行するHadoopジョブを切り替える
- * 引数1（必須）：ファイルパス名
+ * 引数1（必須）：ファイルパス名("/group1/kawasaki/ex/input")
  * 引数2（任意）：実行ジョブ名
  */
 public class Driver extends Configured implements Tool {
@@ -20,7 +20,7 @@ public class Driver extends Configured implements Tool {
 			InterruptedException {
 
 		if (args.length == 0) {
-			System.out.println("args[0] is mandatory.");
+			System.out.println("args[0] is mandatory. ex) /group1/kawasaki/ex/input");
 			return -1;
 		}
 
