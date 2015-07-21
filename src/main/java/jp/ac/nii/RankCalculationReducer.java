@@ -14,6 +14,8 @@ import org.apache.hadoop.io.NullWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 /**
  * エリアごとの業種ランクを計算するジョブのReducerです。
  */
@@ -41,19 +43,28 @@ public class RankCalculationReducer extends
 		List<Map.Entry<String,Integer>> entries = new ArrayList<Map.Entry<String,Integer>>(map.entrySet());
 		Collections.sort(entries, new ValueComparator());
 
-		String outStr = keyIn.toString();
-		int rank = 0;
+		Area area = new Area();
+		area.setAreaName(keyIn.toString());
+
+		int i = 0;
 		for (Entry<String, Integer> entry : entries) {
-			outStr += "," + entry.getKey();
-			rank++;
+			Rank rank = new Rank();
+			rank.setCategory(entry.getKey());
+			rank.setRestNum(entry.getValue());
+			area.addRankList(rank);
+			i++;
 			// 上位3件でbreak
-			if (rank >= FilePathConstants.RANKING) {
+			if (i >= FilePathConstants.RANKING) {
 				break;
 			}
 		}
 
+		// json変換
+		ObjectMapper om = new ObjectMapper();
+		String jsonStr = om.writeValueAsString(area);
+
 		// エリア名,業種1,業種2,業種3
-		valueOut.set(outStr);
+		valueOut.set(jsonStr);
 
 		context.write(nullWritable, valueOut);
 	}
