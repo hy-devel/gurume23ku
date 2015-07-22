@@ -42,7 +42,7 @@ public class Driver extends Configured implements Tool {
 
 	public int runRestaurantCalculationJob(String[] args) throws IOException,
 			ClassNotFoundException, InterruptedException {
-		Job RestaurantCalculationJob = new RestaurantCalculationJob();
+		Job restaurantCalculationJob = new RestaurantCalculationJob();
 
 		return (RestaurantCalculationJob.waitForCompletion(true)) ? 0 : 1;
 	}
