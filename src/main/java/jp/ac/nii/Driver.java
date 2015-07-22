@@ -44,7 +44,7 @@ public class Driver extends Configured implements Tool {
 			ClassNotFoundException, InterruptedException {
 		Job restaurantCalculationJob = new RestaurantCalculationJob();
 
-		return (RestaurantCalculationJob.waitForCompletion(true)) ? 0 : 1;
+		return (restaurantCalculationJob.waitForCompletion(true)) ? 0 : 1;
 	}
 
 	public int runPopularityCountJob(String[] args) throws IOException,
