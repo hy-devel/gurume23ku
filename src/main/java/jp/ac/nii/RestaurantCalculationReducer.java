@@ -10,7 +10,7 @@ import org.apache.hadoop.mapreduce.Reducer;
 /**
  * エリアごとの人気業種を計算するジョブのReducerです。
  */
-public class RestrauntCalculationReducer extends
+public class RestaurantCalculationReducer extends
 		Reducer<Text, Text, NullWritable, Text> {
 
 	private static final NullWritable nullWritable = NullWritable.get();

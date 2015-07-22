@@ -11,7 +11,7 @@ import org.apache.hadoop.mapreduce.Mapper;
  * 以下のフォーマットのファイルが与えられる
  * エリア名,業種名
  */
-public class RestrauntCalculationMapper extends
+public class RestaurantCalculationMapper extends
 		Mapper<LongWritable, Text, Text, Text> {
 
 	private Text keyOut = new Text();
