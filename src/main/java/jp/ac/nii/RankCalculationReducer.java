@@ -74,7 +74,7 @@ public class RankCalculationReducer extends
 		valueOut.set(jsonStr);
 
 		context.write(nullWritable, valueOut);
-	};
+	}
 
 	public class ValueComparator implements Comparator<Map.Entry<String,Integer>> {
 		@Override
