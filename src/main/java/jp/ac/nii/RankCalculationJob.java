@@ -46,6 +46,6 @@ public class RankCalculationJob extends Job {
 		FileInputFormat.addInputPath(this, inputFile);
 		FileOutputFormat.setOutputPath(this, outputFile);
 
-		this.setNumReduceTasks(10);
+		this.setNumReduceTasks(1);
 	}
 }

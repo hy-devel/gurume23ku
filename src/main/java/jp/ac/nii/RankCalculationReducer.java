@@ -26,6 +26,8 @@ public class RankCalculationReducer extends
 
 	private Text valueOut = new Text();
 
+	private List<Area> areaList = new ArrayList<Area>();
+
 	@Override
 	public void reduce(Text keyIn, Iterable<Text> values, Context context)
 			throws IOException, InterruptedException {
@@ -59,15 +61,20 @@ public class RankCalculationReducer extends
 			}
 		}
 
+		areaList.add(area);
+	}
+
+	@Override
+	protected void cleanup(Context context) throws IOException ,InterruptedException {
 		// json変換
 		ObjectMapper om = new ObjectMapper();
-		String jsonStr = om.writeValueAsString(area);
+		String jsonStr = om.writeValueAsString(areaList);
 
 		// エリア名,業種1,業種2,業種3
 		valueOut.set(jsonStr);
 
 		context.write(nullWritable, valueOut);
-	}
+	};
 
 	public class ValueComparator implements Comparator<Map.Entry<String,Integer>> {
 		@Override
